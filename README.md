@@ -5,13 +5,13 @@
  Undergraduate final project link - https://www.fatecourinhos.edu.br/academico/acervo/trabalho/1000467
 
 # SCREENSHOTS
-![Available Gas Stations](https://raw.githubusercontent.com/ademarazn/FindFuel/master/FindFuelAPP/screenshots/2017-10-27-18_33_07.png)
+![Available Gas Stations](https://raw.githubusercontent.com/ademarazn/FindFuel/master/screenshots/2017-10-27-18_33_07.png)
 
-![Selected Gas Station](https://raw.githubusercontent.com/ademarazn/FindFuel/master/FindFuelAPP/screenshots/2017-10-27-18_33_15.png)
+![Selected Gas Station](https://raw.githubusercontent.com/ademarazn/FindFuel/master/screenshots/2017-10-27-18_33_15.png)
 
-![Selected Gas Station Path](https://raw.githubusercontent.com/ademarazn/FindFuel/master/FindFuelAPP/screenshots/2017-10-27-18_33_55.png)
+![Selected Gas Station Path](https://raw.githubusercontent.com/ademarazn/FindFuel/master/screenshots/2017-10-27-18_33_55.png)
 
-![No Location](https://raw.githubusercontent.com/ademarazn/FindFuel/master/FindFuelAPP/screenshots/2017-10-27-18_35_47.png)
+![No Location](https://raw.githubusercontent.com/ademarazn/FindFuel/master/screenshots/2017-10-27-18_35_47.png)
 
 # LICENSE
 MIT License
