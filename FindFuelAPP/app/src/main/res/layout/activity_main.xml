@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+
+    <FrameLayout android:id="@+id/layoutFrag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:keepScreenOn="true">
+        <!-- Fragment será inserido aqui no layout "@+id/layoutFrag" -->
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/dados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/background_light"
+        android:padding="15dp"
+        android:text="@null"
+        android:textColor="@android:color/primary_text_light"
+        android:textSize="30sp"
+        android:visibility="invisible" />
+</RelativeLayout>

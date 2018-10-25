@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+
+def generateSelfSignedCertificate(version){
+    def buildType = version == "release" ? "assembleRelease": "assembleDebug"
+    def rerunAssemble = true
+    def projectLocation = projectDir.toString()
+    def certGeneratorLocation = "certificategenerator-android-studio.jar"
+    def certXmlLocation = projectLocation + "/certificate.xml"
+    def certificateDestination = projectLocation + "/src/main/assets/self-signed.ccc.crt"
+    def certificateFolder = projectLocation + "/src/main/assets/"
+    def certificateIssuer = "CN=Ademar"
+    def developerId = "c1dd99da86aca0254f25170eb8828bb24e761e52"
+    def apkLocation = ""
+    android.applicationVariants.all { variant ->
+        if ((variant.name).equals(version)) {
+            variant.outputs.each { output ->
+                apkLocation = output.outputFile
+            }
+        }
+    }
+
+    if (project.hasProperty("isLast")) {
+        rerunAssemble = !isLast
+    }
+
+
+    if (rerunAssemble) {
+        def subdir = new File(certificateFolder)
+        if( !subdir.exists() ) {
+            subdir.mkdirs()
+        }
+        exec {
+            executable 'java'
+            args "-jar", certGeneratorLocation, "generate-certificate", apkLocation,
+                    android.defaultConfig.applicationId, android.defaultConfig.versionCode,
+                    certXmlLocation, certificateDestination, certificateIssuer, developerId
+        }
+        if (System.properties['os.name'].toLowerCase().contains("windows")) {
+            exec {
+                executable "cmd"
+                workingDir projectLocation
+                args  "/c", "..\\gradlew.bat", buildType, "-PisLast=true"
+            }
+        } else {
+            exec {
+                executable "bash"
+                workingDir projectLocation
+                args "../gradlew", buildType, "-PisLast=true"
+            }
+        }
+    }
+}
+
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.example.findfuel"
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 4
+        versionName "1.3"
+    }
+
+    afterEvaluate {
+        if (this.hasProperty("assembleDebug")) {
+            assembleDebug.finalizedBy generateSelfSignedCertificateForDebug
+        }
+    }
+
+    task generateSelfSignedCertificateForDebug << {
+        generateSelfSignedCertificate("debug")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.google.android.gms:play-services-maps:11.0.2'
+    compile(name: 'mirrorlink-library', ext: 'aar')
+}
